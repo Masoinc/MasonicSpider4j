@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="iqiyi_statistic@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="iqiyi_statistic">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="gtm"/>
+    <schema id="4" parent="1" name="gtm_ess"/>
+    <schema id="5" parent="1" name="gtm_gang"/>
+    <schema id="6" parent="1" name="gtm_pex"/>
+    <schema id="7" parent="1" name="gtm_plot"/>
+    <schema id="8" parent="1" name="information_schema"/>
+    <schema id="9" parent="1" name="msky_2"/>
+    <schema id="10" parent="1" name="mysql"/>
+    <schema id="11" parent="1" name="performance_schema"/>
+    <schema id="12" parent="1" name="sky_1"/>
+    <schema id="13" parent="1" name="sky_1_aa"/>
+    <schema id="14" parent="1" name="sky_1_pex"/>
+    <schema id="15" parent="1" name="sys"/>
+    <table id="16" parent="2" name="top"/>
+    <column id="17" parent="16" name="title">
+      <Position>1</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="18" parent="16" name="tv">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+  </database-model>
+</dataSource>
