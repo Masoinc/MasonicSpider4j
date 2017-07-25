@@ -15,9 +15,8 @@
 - http://top.iqiyi.com/dianshiju.html
 	- 爱奇艺电视剧风云榜
 	- Qiyi.TopSpider
-	- 利用正则匹配页面上类似http://www.iqiyi.com/a_.*html的
+	- 利用正则匹配页面上类似http://www.iqiyi.com/a_.*html网页
 	- 并爬取对应的播放量
-		- 
 - 杂项
 	- Utility.JsonToCsv
 	- 将取得的爱奇艺指数数据转为Csv
