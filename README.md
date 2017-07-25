@@ -6,14 +6,14 @@
 ------
 
 - 原理
-  - 数据来源: 
-    - http://index.iqiyi.com/ 
-    - http://top.iqiyi.com/dianshiju.html
+	- 数据来源: 
+		- http://index.iqiyi.com/ 
+		- http://top.iqiyi.com/dianshiju.html
     
-  - 利用 Url 参数
-    - get_index_trend?album_id=[电视剧ID] 指定电视剧
-    - &time_window=[时间] 指定时间范围
-    - 获取爱奇艺指数数据
+	- 利用 Url 参数
+		- get_index_trend?album_id=[电视剧ID] 指定电视剧
+		- &time_window=[时间] 指定时间范围
+		- 获取爱奇艺指数数据
  
 - 结构
   - me.masonic.datamining.Qiyi
