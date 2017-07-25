@@ -11,6 +11,7 @@
   - get_index_trend?album_id=[电视剧ID] 指定电视剧
   - &time_window=[时间] 指定时间范围
   - 获取爱奇艺指数数据
+ 
 - 结构
   - me.masonic.datamining.Qiyi
     - IndexSpider
