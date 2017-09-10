@@ -17,9 +17,9 @@ import java.nio.charset.Charset;
 
 public class JsonToCsv {
     public static void main(String args[]) {
-        String input = "E:\\PyCharmProjects\\MasonicSpider4p\\Output\\14to17";
-
-        String output = ".\\output\\Qiyi_14to17\\";
+//        String input = "E:\\PyCharmProjects\\MasonicSpider4p\\Output\\14to17";
+        String input = "E:\\PyCharmProjects\\MasonicSpider4p\\Output\\pre";
+        String output = ".\\output\\Qiyi_pre\\";
 
         File dir = new File(input);
         if (dir.exists()) {

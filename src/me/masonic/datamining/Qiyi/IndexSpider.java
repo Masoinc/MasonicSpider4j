@@ -29,39 +29,42 @@ public class IndexSpider extends BreadthCrawler {
     private static HashMap<String, String> SOAPMAP = new HashMap<>();
 
     static {
-        SOAPMAP.put("207471001", "一粒红尘");
-        SOAPMAP.put("205171701", "深夜食堂");
-        SOAPMAP.put("204210101", "女管家");
-        SOAPMAP.put("205087501", "欢乐颂2");
-        SOAPMAP.put("203487801", "思美人");
-        SOAPMAP.put("203487801", "择天记");
-        SOAPMAP.put("204759601", "外科风云");
-        SOAPMAP.put("206264101", "继承人");
-        SOAPMAP.put("206206701", "人民的名义");
-        SOAPMAP.put("203792501", "漂洋过海来看你");
-        SOAPMAP.put("204466001", "射雕英雄传");
-        SOAPMAP.put("205017001", "因为遇见你");
-        SOAPMAP.put("204166701", "那片星空那片海");
-        SOAPMAP.put("204218901", "三生三世十里桃花");
-        SOAPMAP.put("205162101", "守护丽人");
-        SOAPMAP.put("205551601", "漂亮的李慧珍");
-        SOAPMAP.put("204358301", "夏至未至");
-        //SOAPMAP.put("205543201", "大唐荣耀");//未收录
-        //SOAPMAP.put("204691501", "孤芳不自赏");//未收录
-        //SOAPMAP.put("119658800", "白鹿原");//未收录
-        SOAPMAP.put("202526401", "少年四大名捕");
-        SOAPMAP.put("203152301", "秦时明月");
-        SOAPMAP.put("202856001", "古剑奇谭");
-        SOAPMAP.put("203164301", "老九门");
-        SOAPMAP.put("151646701", "爱情公寓4");
-        SOAPMAP.put("203034301", "小别离");
-        SOAPMAP.put("202473701", "伪装者");
-        SOAPMAP.put("202183301", "红高粱");
-        SOAPMAP.put("203143601", "麻雀");
-        SOAPMAP.put("203199301", "胭脂");
-        SOAPMAP.put("202121101", "琅琊榜");
-        SOAPMAP.put("202321801", "武媚娘传奇");
-        SOAPMAP.put("203364601", "锦绣未央");
+//        SOAPMAP.put("207471001", "一粒红尘");
+//        SOAPMAP.put("205171701", "深夜食堂");
+//        SOAPMAP.put("204210101", "女管家");
+//        SOAPMAP.put("205087501", "欢乐颂2");
+//        SOAPMAP.put("203487801", "思美人");
+//        SOAPMAP.put("203487801", "择天记");
+//        SOAPMAP.put("204759601", "外科风云");
+//        SOAPMAP.put("206264101", "继承人");
+//        SOAPMAP.put("206206701", "人民的名义");
+//        SOAPMAP.put("203792501", "漂洋过海来看你");
+//        SOAPMAP.put("204466001", "射雕英雄传");
+//        SOAPMAP.put("205017001", "因为遇见你");
+//        SOAPMAP.put("204166701", "那片星空那片海");
+//        SOAPMAP.put("204218901", "三生三世十里桃花");
+//        SOAPMAP.put("205162101", "守护丽人");
+//        SOAPMAP.put("205551601", "漂亮的李慧珍");
+//        SOAPMAP.put("204358301", "夏至未至");
+//        //SOAPMAP.put("205543201", "大唐荣耀");//未收录
+//        //SOAPMAP.put("204691501", "孤芳不自赏");//未收录
+//        //SOAPMAP.put("119658800", "白鹿原");//未收录
+//        SOAPMAP.put("202526401", "少年四大名捕");
+//        SOAPMAP.put("203152301", "秦时明月");
+//        SOAPMAP.put("202856001", "古剑奇谭");
+//        SOAPMAP.put("203164301", "老九门");
+//        SOAPMAP.put("151646701", "爱情公寓4");
+//        SOAPMAP.put("203034301", "小别离");
+//        SOAPMAP.put("202473701", "伪装者");
+//        SOAPMAP.put("202183301", "红高粱");
+//        SOAPMAP.put("203143601", "麻雀");
+//        SOAPMAP.put("203199301", "胭脂");
+//        SOAPMAP.put("202121101", "琅琊榜");
+//        SOAPMAP.put("202321801", "武媚娘传奇");
+//        SOAPMAP.put("203364601", "锦绣未央");
+        SOAPMAP.put("203965201", "楚乔传");
+        SOAPMAP.put("205400701", "醉玲珑");
+        SOAPMAP.put("205416101", "我的前半生");
 
     }
 
@@ -82,12 +85,13 @@ public class IndexSpider extends BreadthCrawler {
         Matcher matcher = pattern.matcher(data);
 
         String title = null;
-
         while (matcher.find()) {
             title = matcher.group();
         }
+
         List<String> date = getDate(data);
         List<String> tv = getTvList(data);
+
         try {
             saveDataByCsv(date, tv, title);
         } catch (IOException e) {
