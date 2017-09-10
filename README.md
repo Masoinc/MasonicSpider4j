@@ -1,5 +1,5 @@
 # MasonicSpider4j
-### 登峰杯决赛-数据挖掘-爱奇艺指数爬虫
+### Data Mining - Iqiyi Index Spider
 ### 17.7.25 By Masonic
 
 ------
