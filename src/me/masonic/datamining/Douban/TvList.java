@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class TvList extends BreadthCrawler {
     private static final String OUTPUT = ".\\output\\DouBan\\";
-    private static final String SPIDER_SUM = "100";
+    private static final String SPIDER_SUM = "120";
 
     public TvList(String crawlPath, boolean autoParse) {
         super(crawlPath, autoParse);
@@ -94,7 +94,8 @@ public class TvList extends BreadthCrawler {
         System.out.println(rates);
         System.out.println(id);
 
-        String csvp = OUTPUT + "豆瓣热播电视剧.csv";
+//        String csvp = OUTPUT + "豆瓣热播电视剧.csv";
+        String csvp = OUTPUT + "豆瓣近期电视剧.csv";
 
         CsvWriter cw = new CsvWriter(csvp, ',', Charset.forName("GBK"));
         try {
@@ -103,10 +104,7 @@ public class TvList extends BreadthCrawler {
                 assert id != null;
                 assert rates != null;
                 String[] content = {names.get(i), id.get(i).toString(), rates.get(i).toString()};
-
                 cw.writeRecord(content);
-
-
             }
             cw.close();
             System.out.println(csvp + "已保存");
@@ -131,8 +129,11 @@ public class TvList extends BreadthCrawler {
         spider.setTopN(5000);
 
         spider.setExecuteInterval(2000);
+        // 按热度排序
+//        spider.addSeed("https://movie.douban.com/j/search_subjects?type=tv&tag=%E5%9B%BD%E4%BA%A7%E5%89%A7&sort=recommend&page_limit=" + SPIDER_SUM + "&page_start=0");
 
-        spider.addSeed("https://movie.douban.com/j/search_subjects?type=tv&tag=%E5%9B%BD%E4%BA%A7%E5%89%A7&sort=recommend&page_limit=" + SPIDER_SUM + "&page_start=0");
+        // 按时间排序
+        spider.addSeed("https://movie.douban.com/j/search_subjects?type=tv&tag=%E5%9B%BD%E4%BA%A7%E5%89%A7&sort=time&page_limit=" + SPIDER_SUM + "&page_start=0");
 
         spider.start(1);
     }
