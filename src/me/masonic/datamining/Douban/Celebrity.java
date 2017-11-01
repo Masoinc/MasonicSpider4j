@@ -31,11 +31,20 @@ public class Celebrity extends BreadthCrawler {
     }
 
     //TODO:
-    //完成演员/导演/编剧数据库
+    //完成演员/导演/编剧数据库√
+    //使用LSTM预测播放量√
     //完成微博粉丝量数据采集工作
-    //试图应用NLP技术判断评论
-    //试图为LSTM模型共享参数
-    //试图魔改卷积神经网络结构
+    //试图应用NLP技术判断评论(放弃)
+    //试图为LSTM模型共享参数()
+    //试图魔改卷积神经网络结构(√)
+    //CNN增加BN层(放弃)
+    //大规模数据采集
+    //Java爬取豆瓣Overview和剧组人员列表
+    //Python WeiIndex根据列表爬取人员最近的热度记录，汇总出人员热度数据
+    //Java IqiyiIndexSpider汇总电视剧集的热度数据(时间序列/总)
+    //Python Tensorflow 建立深度神经网络，使用人员热度数据预测电视剧集热度数据(时间序列/总)
+    //汇总方法可考虑卷积
+    //->真正的大数据集大规模训练
 
     @Override
     public void visit(Page page, CrawlDatums crawlDatums) {
@@ -68,6 +77,7 @@ public class Celebrity extends BreadthCrawler {
         }
 
         // 最近5部作品
+        System.out.println(name);
         System.out.println(rp);
         System.out.println(rpv);
         // 最佳5部作品
@@ -144,8 +154,6 @@ public class Celebrity extends BreadthCrawler {
     }
 
     public static void main(String[] args) throws Exception {
-
-
         File file = new File(OUTPUT);
         File[] flist = file.listFiles();
         assert flist != null;
@@ -174,32 +182,54 @@ public class Celebrity extends BreadthCrawler {
     //        String test = OUTPUT + "白夜追凶.csv";
 //        System.out.println(getCelebrityList(test));
     private static void writeCelebrityv(String fname) throws IOException {
-        String csvp = OUTPUT + fname;
+        String csvp = OUTPUT + "Full_" + fname;
 
         System.out.println(current_cel_bestv.indexOf(""));
         CsvWriter cw = new CsvWriter(csvp, ',', Charset.forName("GBK"));
 
         for (int i = 0; i < csv.size() + 1; i++) {
-            if (i > current_cel_bestv.indexOf("")) {
-                break;
+
+            if (i <= current_cel_bestv.indexOf("")) {
+                String[] line = new String[csv.get(i).length + 2];
+                for (int p = 0; p < csv.get(i).length; p++) {
+                    line[p] = csv.get(i)[p];
+                }
+                if (current_cel_bestv.get(i).contains("subject") || current_cel_bestv.get(i).contains("celebrity")) {
+                    line[csv.get(i).length - 1] = "-1";
+                } else {
+                    line[csv.get(i).length - 1] = current_cel_bestv.get(i);
+                }
+                if (current_cel_recentv.get(i).contains("subject") || current_cel_recentv.get(i).contains("celebrity")) {
+                    line[csv.get(i).length] = "-1";
+                } else {
+                    line[csv.get(i).length] = current_cel_recentv.get(i);
+                }
+                cw.writeRecord(line);
+            } else {
+                if (i < csv.size()) {
+                    cw.writeRecord(csv.get(i));
+                }
             }
-            String[] line = new String[csv.get(i).length + 1];
-            for (int p = 0; p < csv.get(i).length; p++) {
-                line[p] = csv.get(i)[p];
-            }
-            line[csv.get(i).length] = current_cel_bestv.get(i);
-            cw.writeRecord(line);
+
+//            if (i <= current_cel_bestv.indexOf("")) {
+//                String[] line = new String[csv.get(i).length + 1];
+//                for (int p = 0; p < csv.get(i).length; p++) {
+//                    line[p] = csv.get(i)[p];
+//                }
+//                if (current_cel_bestv.get(i).contains("subject") || current_cel_bestv.get(i).contains("celebrity")) {
+//                    line[csv.get(i).length] = "-1";
+//                } else {
+//                    line[csv.get(i).length] = current_cel_bestv.get(i);
+//                }
+//                cw.writeRecord(line);
+//            } else {
+//                if (i < csv.size()) {
+//                    cw.writeRecord(csv.get(i));
+//                }
+//            }
+
 
         }
-
-//        for (int i = 0; i < current_cel_bestv.size(); i++) {
-//            String[] line = new String[csv.get(i).length + 1];
-//            for (int p = 0; p < csv.get(i).length; p++) {
-//                line[p] = csv.get(i)[p];
-//            }
-//            line[csv.get(i).length + 1] = current_cel_bestv.get(i);
-//            cw.writeRecord(line);
-//        }
         cw.close();
         csv.clear();
         current_cel_bestv.clear();
@@ -215,7 +245,7 @@ public class Celebrity extends BreadthCrawler {
         spider.setThreads(1);
         spider.setTopN(5000);
 
-        spider.setExecuteInterval(2000);
+        spider.setExecuteInterval(200);
 
         spider.addSeed("https://movie.douban.com" + cid);
 
