@@ -1,5 +1,6 @@
 package me.masonic.datamining.Qiyi;
 
+import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
 import me.masonic.datamining.Utility.SqlUtility;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
@@ -11,6 +12,7 @@ import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.regex.Pattern;
  */
 public class IndexSpider extends BreadthCrawler {
 
-    private static final String OUTPUT = ".\\output\\Qiyi\\";
+    private static final String OUTPUT = ".\\output\\Qiyi\\Qiyi_BigDataSet\\";
 
     private static HashMap<String, String> SOAPMAP = new HashMap<>();
 
@@ -93,7 +95,15 @@ public class IndexSpider extends BreadthCrawler {
         List<String> tv = getTvList(data);
 
         try {
-            saveDataByCsv(date, tv, title);
+//            saveDataByCsv(date, tv, title);
+            CsvWriter cw = new CsvWriter("E:\\IdeaProjects\\MasonicSpider4j\\output\\Qiyi_BigDataSet\\" + title + ".csv", ',', Charset.forName("GBK"));
+
+            for (int i = 0; i < date.size(); i++) {
+                String[] content = {date.get(i), tv.get(i)};
+                cw.writeRecord(content);
+            }
+            cw.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,7 +171,6 @@ public class IndexSpider extends BreadthCrawler {
         for (int i = 0; i < dates.size(); i++) {
             String[] content = {dates.get(i), tvs.get(i)};
             cw.writeRecord(content);
-
         }
         cw.close();
 
@@ -209,9 +218,22 @@ public class IndexSpider extends BreadthCrawler {
         spider.setTopN(5000);
 
         spider.setExecuteInterval(2000);
-        for (String soap : SOAPMAP.keySet()) {
-            spider.addSeed("https://uaa.if.iqiyi.com/video_index/v2/get_index_trend?album_id=" + soap + "&time_window=-1");
+
+        ArrayList<String> ids = new ArrayList<>();
+        CsvReader csvReader = new CsvReader("E:\\IdeaProjects\\MasonicSpider4j\\output\\Big_DataSet\\Qiyi_id.csv", ',', Charset.forName("GBK"));
+        // 读取表头
+        csvReader.readHeaders();
+        while (csvReader.readRecord()) {
+            ids.add(csvReader.get(1));
+            // System.getProperty("line.separator") 获取当前系统换行符
         }
-        spider.start(4);
+        csvReader.close();
+        for (String id : ids) {
+            spider.addSeed("https://uaa.if.iqiyi.com/video_index/v2/get_index_trend?album_id=" + id + "&time_window=-1");
+        }
+//        for (String soap : SOAPMAP.keySet()) {
+//            spider.addSeed("https://uaa.if.iqiyi.com/video_index/v2/get_index_trend?album_id=" + soap + "&time_window=-1");
+//        }
+        spider.start(1);
     }
 }

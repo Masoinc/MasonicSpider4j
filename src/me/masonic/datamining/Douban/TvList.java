@@ -40,7 +40,6 @@ public class TvList extends BreadthCrawler {
             return null;
         }
         return (id);
-
     }
 
     private static List<Double> getTvRate(String data) {
